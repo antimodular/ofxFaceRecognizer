@@ -1,0 +1,4 @@
+ofxCv
+ofxFaceRecognizer
+ofxOpenCV2461
+ofxYAML
