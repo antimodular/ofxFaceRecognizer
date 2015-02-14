@@ -46,3 +46,7 @@ https://github.com/kylemcdonald/ofxCv
 
 ofxYAML
 https://github.com/satoruhiga/ofxYAML
+
+
+Operating systems:
+ofxFaceRecognizer has only been tested on osx 10.10 with OF 0.8.4
