@@ -1,4 +1,5 @@
-Introduction:
+# Introduction
+
 ofxFaceRecognizer is an attempt to implement the face recognition tutorial from the opencv site:
 http://docs.opencv.org/modules/contrib/doc/facerec/facerec_tutorial.html
 
@@ -19,8 +20,9 @@ Each person has more then one image but always the same ID. This ID is used by o
 I used ofxCv align eyes and crop functions to prepare the images before placing them in the faces folder.
 
 
-Installation:
-Download the source from GitHub, unzip the folder, rename it from ofxFaceRecognizer-master to ofxFaceRecognizer and place it in your openFrameworks/addons folder.
+# Installation
+
+Download the source from GitHub, unzip the folder, rename it from ofxFaceRecognizer-master to ofxFaceRecognizer and place it in your `openFrameworks/addons` folder.
 
 Or use project generator to build project and then:
 
@@ -35,7 +37,7 @@ targets-> build settings ->library search paths
 $(OPENCV_LIBS_PATH)
 
 
-Dependencies:
+# Dependencies
 
 ofxOpenCV2461
 https://github.com/pkmital/ofxOpenCV2461
@@ -48,5 +50,6 @@ ofxYAML
 https://github.com/satoruhiga/ofxYAML
 
 
-Operating systems:
+# Operating systems
+
 ofxFaceRecognizer has only been tested on osx 10.10 with OF 0.8.4
