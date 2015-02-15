@@ -40,6 +40,13 @@ public:
     int getMethodId();
     string getMethodName();
     
+    void generateEigenFishFaces();
+    void drawEigefaceJET(int _id, float _x, float _y, float _w, float _h);
+    void drawEigenfaceBONE(int _id, float _x, float _y, float _w, float _h);
+    void drawReconstructionImage(int _id, float _x, float _y, float _w, float _h);
+    int getEigenfaceSize();
+    int getReconstructionSize();
+    
      vector<int> allTrainingLabels;
 protected:
     
@@ -47,13 +54,7 @@ protected:
     Ptr<FaceRecognizer> model;
     
     int maxFaces;
-    
-    /*
-    int method_used;
-    int maxFaces;
-    bool bAlreadySavedModel;
-    string folderName;
-    */
+
     
     vector<ofImage> allTrainingImages;
     vector<ofImage> oneImagePerPerson;
@@ -69,5 +70,10 @@ protected:
     
     string methodName;
     int methodId;
+    
+    vector<ofImage>cgrayscaleJET_array;
+    vector<ofImage>cgrayscaleBONE_array;
+    vector<ofImage>reconstruction_array;
+    
     
 };
