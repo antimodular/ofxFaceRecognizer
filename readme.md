@@ -1,6 +1,6 @@
 # Introduction
 
-ofxFaceRecognizer is an attempt to implement the face recognition tutorial from the opencv site:
+ofxFaceRecognizer an addon for openframeworks that implements the face recognition tutorial from the opencv site:
 http://docs.opencv.org/modules/contrib/doc/facerec/facerec_tutorial.html
 
 It needs opencv 2 or higher.
