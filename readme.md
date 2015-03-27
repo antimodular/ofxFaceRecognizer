@@ -53,3 +53,8 @@ https://github.com/satoruhiga/ofxYAML
 # Operating systems
 
 ofxFaceRecognizer has only been tested on osx 10.10 with OF 0.8.4
+
+## Images
+Screen shot:
+
+![](https://raw.githubusercontent.com/antimodular/ofxFaceRecognizer/master/Screen_Shot.png)
