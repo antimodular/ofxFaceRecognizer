@@ -55,6 +55,9 @@ https://github.com/satoruhiga/ofxYAML
 ofxFaceRecognizer has only been tested on osx 10.10 with OF 0.8.4
 
 ## Images
+This addon has been used for "Level of Confidence":
+<https://github.com/antimodular/Level-of-Confidence>
+
 Screen shot:
 
 ![](https://raw.githubusercontent.com/antimodular/ofxFaceRecognizer/master/Screen_Shot.png)
