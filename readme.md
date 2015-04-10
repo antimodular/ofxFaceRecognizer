@@ -15,7 +15,7 @@ I am supplying some example faces created by the Tarrlab at Brown University.
 http://wiki.cnbc.cmu.edu/Face_Place
 
 You notice that the image file names (MF0907_1100_HA.tiff) contain unique IDs to label each person.
-Each person has more then one image but always the same ID. This ID is used by ofxFaceRecognizer to label each person sepratly.
+Each person has more then one image but always the same ID. This ID is used by ofxFaceRecognizer to label each person separately.
 
 I used ofxCv align eyes and crop functions to prepare the images before placing them in the faces folder.
 
