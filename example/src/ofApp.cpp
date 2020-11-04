@@ -5,9 +5,10 @@ void ofApp::setup(){
 
     ofSetVerticalSync(true);
     ofSetFrameRate(120);
-    objectFinder.setup("haarcascade_frontalface_alt2.xml");
+    objectFinder.setup("haarcascade_frontalface_default.xml");
     objectFinder.setPreset(ObjectFinder::Fast);
-    cam.initGrabber(640, 480);
+    cam.setDeviceID(1);
+    cam.setup(640, 480);
     cropped.allocate(150,150, OF_IMAGE_COLOR);
 
     
@@ -17,8 +18,9 @@ void ofApp::setup(){
     // 2 = LBPHFaces_method
     
     //int maxFaces, bool bAlreadySavedModel, string folderName
-//    recognizer.setup(132,true,"faces");
-recognizer.setup(132,false,"faces");
+    //true means we already have a model.yml file in the data folder
+    //false the addon will generate one based on the images found in data/faces folder
+    recognizer.setup(132,true,"faces");
     cout<<recognizer.getUniquePersonCount()<<" seperate people are in the training database"<<endl;
     
 }
@@ -31,6 +33,9 @@ void ofApp::update(){
         objectFinder.update(cam);
         
         if(objectFinder.size() > 0) {
+            //when using the haarcascade method of face detection the returned images are 150x150 pix
+            //the face regonizer is also trained on this size of images
+            //make sure that training images and newly detected faces always have the same res
             cv::Rect roi = toCv(objectFinder.getObject(0));
             Mat camMat = toCv(cam);
             Mat croppedCamMat(camMat, roi);
@@ -40,6 +45,7 @@ void ofApp::update(){
             Mat face;
             //recognizer wants grayscale image
             cvtColor(toCv(cropped), face, CV_BGR2GRAY);
+             ofLog()<<"face rows "<<face.rows<<" cols "<<face.cols;
             recognizer.update(face);
             
             cout<<"recognizer.getConfidence() "<<recognizer.getConfidence()<<endl;
@@ -53,6 +59,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    ofSetColor(255);
     cam.draw(0, 0);
     objectFinder.draw();
     cropped.draw(0 , cam.getHeight());

@@ -66,6 +66,8 @@ inline std::vector<_Tp> remove_dups(const std::vector<_Tp>& src) {
 // Fisherfaces
 //------------------------------------------------------------------------------
 void Fisherfaces::train(InputArrayOfArrays src, InputArray _lbls) {
+    
+    std::cout<<"Fisherfaces src.total() "<<src.total()<<" _lbls "<<_lbls.size();
     if(src.total() == 0) {
         String error_message = format("Empty training data was given. You'll need more than one sample to learn a model.");
         CV_Error(Error::StsBadArg, error_message);
