@@ -49,6 +49,12 @@ https://github.com/kylemcdonald/ofxCv
 ofxYAML
 https://github.com/satoruhiga/ofxYAML
 
+Face Wrapper
+===========================
+
+Put your OF opencv Wrappers here! You might need the face landmark model if you use AAM, get it here: https://github.com/opencv/opencv_3rdparty/tree/contrib_face_alignment_20170818
+
+Samples of how to use the face contrib module here: https://github.com/opencv/opencv_contrib/tree/master/modules/face/samples
 
 # Operating systems
 

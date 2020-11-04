@@ -16,9 +16,9 @@ void ofApp::setup(){
     // 1 = Fisherfaces_method; faster to load
     // 2 = LBPHFaces_method
     
-    //int method_used, int maxFaces, bool bAlreadySavedModel, string folderName
-    recognizer.setup(1,132,true,"faces");
-
+    //int maxFaces, bool bAlreadySavedModel, string folderName
+//    recognizer.setup(132,true,"faces");
+recognizer.setup(132,false,"faces");
     cout<<recognizer.getUniquePersonCount()<<" seperate people are in the training database"<<endl;
     
 }

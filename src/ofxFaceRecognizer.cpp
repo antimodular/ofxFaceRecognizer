@@ -17,23 +17,26 @@ ofxFaceRecognizer::~ofxFaceRecognizer(){
     //close();
 }
 
-void ofxFaceRecognizer::setup(int method_used, int _maxFaces, bool bAlreadySavedModel, string folderName) {
+void ofxFaceRecognizer::setup(int _maxFaces, bool bAlreadySavedModel, string folderName) {
 
     //eigen take much longer to load and longer to generate. also makes much larger yml file
     string method_names[3] = {"eigen","fisher","lbph"};
     
     // Create a FaceRecognizer and train it on the given images:
-    methodId = method_used;
-    methodName = method_names[method_used];
-    if(methodId == 0){
-        model = createEigenFaceRecognizer();
-    }
-    if(methodId == 1){
-        model = createFisherFaceRecognizer();
-    }
-    if(methodId == 2){
-        model = createLBPHFaceRecognizer();
-    }
+
+   
+#if defined(USE_EIGEN)
+    methodId = 0;
+    model = EigenFaceRecognizer::create();
+#elif defined(USE_FISHER)
+    methodId = 1;
+    model = FisherFaceRecognizer::create();
+#elif defined(USE_LBPHF)
+    methodId = 2;
+    model = LBPHFaceRecognizer::create();
+#else
+#endif
+     methodName = method_names[methodId];
     
     //if(_maxFaces > 0){
     
@@ -53,7 +56,7 @@ void ofxFaceRecognizer::setup(int method_used, int _maxFaces, bool bAlreadySaved
     if(bAlreadySavedModel){
         cout<<"model .yml supposedly existing"<<endl;
         cout<<"if it crashes here set bAlreadySavedModel = false which generates a new database model"<<endl;
-        model->load(compiledDatabasePath);
+        model->read(compiledDatabasePath);
         cout<<"loaded "<<maxFaces<<" faces with model "<<methodName<<endl;
     }else{
         cout<<"start training new model. this might take a very long time"<<endl;
@@ -70,7 +73,7 @@ void ofxFaceRecognizer::setup(int method_used, int _maxFaces, bool bAlreadySaved
     }
     
 
-    if(methodId == 0 || methodId == 1) generateEigenFishFaces();
+//    if(methodId == 0 || methodId == 1) generateEigenFishFaces();
 
     
 }
@@ -93,7 +96,7 @@ void ofxFaceRecognizer::loadTrainingImages(string _folderName, int _maxFaces){
     dir.allowExt("tiff");
     dir.listDir();
     
-    cout<<"dir.numFiles() "<<dir.numFiles()<<endl;
+    cout<<"dir.numFiles() "<<dir.size()<<endl;
     int lableCnt = 0;
     int imgCountPerPerson = 0;
     string lastLabel = "";
@@ -107,10 +110,10 @@ void ofxFaceRecognizer::loadTrainingImages(string _folderName, int _maxFaces){
         //file containts ID for each person
         //here you need to parse the file name to get this ID specific to each person
         string temp_label = fileName.substr(0,6);
-     //   cout<<i<<" "<<lableCnt<<" , "<<temp_label<<endl;
+        cout<<i<<" "<<lableCnt<<" , "<<temp_label<<endl;
         
         ofImage temp_img;
-        temp_img.loadImage(dir.getPath(i));
+        temp_img.load(dir.getPath(i));
         allTrainingImages.push_back(temp_img); //stores all the images from database
         allTrainingLabels.push_back(lableCnt); //stores the label for each image. each person has a different label but all the images of the same person have the same label
         
@@ -165,8 +168,10 @@ static Mat norm_0_255(InputArray _src) {
     return dst;
 }
 
+/*
 void ofxFaceRecognizer::generateEigenFishFaces(){
     int height = allTrainingMats[0].rows;
+   
     
     // Here is how to get the eigenvalues of this Eigenfaces model:
     Mat eigenvalues = model->getMat("eigenvalues");
@@ -249,6 +254,7 @@ void ofxFaceRecognizer::generateEigenFishFaces(){
     }
     
 }
+*/
 
 int ofxFaceRecognizer::getEigenfaceSize(){
     return cgrayscaleJET_array.size();

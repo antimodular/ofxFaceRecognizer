@@ -11,17 +11,24 @@
 
 #include <stdio.h>
 #include "ofxCv.h"
+#include "opencv2/face.hpp"
 
+//#define USE_EIGEN
+#define USE_FISHER
+//#define USE_LBPHF
 
 using namespace cv;
+using namespace cv::face;
 using namespace ofxCv;
+
+
 
 class ofxFaceRecognizer {
 public:
     ofxFaceRecognizer();
     virtual ~ofxFaceRecognizer();
     
-    void setup(int method_used, int _maxFaces, bool bAlreadySavedModel, string folderName);
+    void setup(int _maxFaces, bool bAlreadySavedModel, string folderName);
     void loadTrainingImages(string _folderName, int _maxFaces);
     
     float getImageWidth();
@@ -40,7 +47,7 @@ public:
     int getMethodId();
     string getMethodName();
     
-    void generateEigenFishFaces();
+//    void generateEigenFishFaces();
     void drawEigefaceJET(int _id, float _x, float _y, float _w, float _h);
     void drawEigenfaceBONE(int _id, float _x, float _y, float _w, float _h);
     void drawReconstructionImage(int _id, float _x, float _y, float _w, float _h);
@@ -51,8 +58,14 @@ public:
 protected:
     
     int databaseImage_width,databaseImage_height;
-    Ptr<FaceRecognizer> model;
-    
+#if defined(USE_EIGEN)
+    Ptr<EigenFaceRecognizer> model;
+#elif defined(USE_FISHER)
+    Ptr<FisherFaceRecognizer> model;
+#elif defined(USE_LBPHF)
+    Ptr<LBPHFaceRecognizer> model;
+#else
+#endif
     int maxFaces;
 
     
